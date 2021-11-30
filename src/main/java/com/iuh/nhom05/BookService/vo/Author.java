@@ -1,4 +1,4 @@
-package com.iuh.nhom05.BookService.entities;
+package com.iuh.nhom05.BookService.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,13 +15,12 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Book {
+public class Author {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
-    private String imageUrl;
-    private String title;
-    private int authorId;
-    private double price;
-    private int publishedYear;
+    private String firstName;
+    private String lastName;
+    private String dateOfBirth;
+    private String area;
 }
