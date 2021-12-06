@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class BookServiceImpl implements BookService{
     @Autowired
@@ -17,16 +20,41 @@ public class BookServiceImpl implements BookService{
     private RestTemplate restTemplate;
 
     private String httpAuthor = "http://localhost:8082";
-    private String httpBook = "http://localhost:8081";
 
     @Override
     public Book_Athour_VO findById_vo(int id) {
         Book_Athour_VO vo = new Book_Athour_VO();
-        Book book = restTemplate.getForObject(httpBook + "/books/" + id, Book.class);
+        Book book = findById(id);
         vo.setBook(book);
         Author author = restTemplate.getForObject(httpAuthor + "/authors/" + book.getAuthorId(), Author.class);
         vo.setAuthor(author);
         return vo;
+    }
+
+    @Override
+    public List<Book> findAll() {
+        List<Book> listBook = bookRepository.findAll();
+        return listBook;
+    }
+
+    @Override
+    public Book findById(int id) {
+        Optional<Book> rs = bookRepository.findById(id);
+        Book book = null;
+        if (rs.isPresent()) {
+            book = rs.get();
+        }
+        return book;
+    }
+
+    @Override
+    public void save(Book book) {
+        bookRepository.save(book);
+    }
+
+    @Override
+    public void deleteById(int id) {
+        bookRepository.deleteById(id);
     }
 
 }
