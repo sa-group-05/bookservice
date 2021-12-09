@@ -17,9 +17,6 @@ spring:
         max-idle: 8
         min-idle: 0
 
-server:
-  port: 8082
-
 eureka:
   client:
     service-url:
