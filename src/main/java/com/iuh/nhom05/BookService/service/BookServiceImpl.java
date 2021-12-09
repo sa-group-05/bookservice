@@ -4,6 +4,7 @@ import com.iuh.nhom05.BookService.entities.Book;
 import com.iuh.nhom05.BookService.repository.BookRepository;
 import com.iuh.nhom05.BookService.vo.Author;
 import com.iuh.nhom05.BookService.vo.Book_Athour_VO;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -31,12 +32,14 @@ public class BookServiceImpl implements BookService{
         return vo;
     }
 
+    @RateLimiter(name = "basic")
     @Override
     public List<Book> findAll() {
         List<Book> listBook = bookRepository.findAll();
         return listBook;
     }
 
+    @RateLimiter(name = "timeout")
     @Override
     public Book findById(int id) {
         Optional<Book> rs = bookRepository.findById(id);
