@@ -28,19 +28,17 @@ public class BookServiceApplication {
         return new LettuceConnectionFactory();
     }
 
+	@Bean
+	public RestTemplate getRestTemplate(){
+		return new RestTemplate();
+	}
+
     @Bean
     RedisTemplate redisTemplate() {
         RedisTemplate redisTemplate = new RedisTemplate();
         redisTemplate.setConnectionFactory(jedisConnectionFactory());
         return redisTemplate;
     }
-	public static void main(String[] args) {
-		SpringApplication.run(BookServiceApplication.class, args);
-	}
-	@Bean
-	public RestTemplate getRestTemplate(){
-		return new RestTemplate();
-	}
 
 	@Bean
 	public Docket swaggerConfiguration() {
