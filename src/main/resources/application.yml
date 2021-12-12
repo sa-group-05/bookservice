@@ -5,7 +5,7 @@ spring:
     import: "optional:configserver:"
   cloud:
     config:
-      uri: http://localhost:8888
+      uri: https://config-cloud-server.herokuapp.com/
   redis:
     host: localhost
     password:
